@@ -1,34 +1,63 @@
 <html>
-  <header>
-    <title>NZXT Starfield Compass Web Integration</title>
-    <link rel="stylesheet" href="./public/css/style.css" />
-  </header>
-  <body>
-    <div class="custom_text_container">
-      <p class="title">LUNA</p>
-      <p class="subtitle">MOON</p>
+<header>
+  <title>NZXT Starfield Compass Web Integration</title>
+  <link rel="stylesheet" href="./public/css/style.css" />
+</header>
+
+<body>
+  <div class="custom_text_container">
+    <p class="title">ramoni2424</p>
+  </div>
+  <div class="info_wrapper">
+
+    <div class="info_container">
+      <p id="cpu_usage_use" class="title">nombreCPU</p>
+      <p id="cpu_temp" class="info">42 °C</p>
     </div>
 
-    <div class="info_wrapper">
-      <div class="info_container">
-        <p id="cpu_temp" class="info">42°C</p>
-        <p class="title">CPU</p>
-      </div>
+    <span class="divider"></span>
 
-      <span class="divider"></span>
 
-      <div class="info_container">
-        <p id="ram_usage" class="info">0 GB</p>
-        <p class="title">RAM</p>
-      </div>
-
-      <span class="divider"></span>
-
-      <div class="info_container">
-        <p id="gpu_temp" class="info">69°C</p>
-        <p class="title">GPU</p>
-      </div>
+    <div class="info_container">
+      <p id="ram_usage" class="title">nombreRAM</p>
+      <p id="ram_usage_uso" class="info">1.60 GB</p>
     </div>
-  </body>
-  <script type="module" src="./public/js/main.js"></script>
+
+
+    <span class="divider"></span>
+
+    <div class="info_container">
+      <p id="gpu_usage_use" class="title">nombreGPU</p>
+      <p id="gpu_temp" class="info">42 °C</p>
+    </div>
+
+  </div>
+
+  <div class="info_wrapper">
+
+    <div class="info_container">
+      <p class="title"></p>
+      <p class="info"></p>
+    </div>
+
+    <span class="divider"></span>
+
+    <div class="info_container">
+      <p id="kraken_usage" class="title">Liquido</p>
+      <p id="kraken_usage_use" class="info">10 °C</p>
+    </div>
+
+    <span class="divider"></span>
+
+    <div class="info_container">
+      <p class="title"></p>
+      <p class="info"></p>
+    </div>
+
+  </div>
+
+
+</body>
+<script type="module" src="./public/js/main.js"></script>
+
 </html>
