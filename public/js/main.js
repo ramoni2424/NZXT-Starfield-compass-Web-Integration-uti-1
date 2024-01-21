@@ -110,3 +110,40 @@ function use_kraken(kraken_c) {
   kraken_usage_use_c.innerHTML = `${krakenInUse} °C`;
 
 }
+
+//----
+// Obtén el elemento HTML
+var elemento = document.getElementById('hora_use');
+
+// Función para actualizar la hora
+function actualizarHora() {
+    // Obtén la fecha y hora actual
+    var ahora = new Date();
+
+    // Obtén las horas y los minutos
+    var horas = ahora.getHours();
+    var minutos = ahora.getMinutes();
+
+    // Determina si es AM o PM
+    var ampm = horas >= 12 ? 'PM' : 'AM';
+
+    // Convierte las horas al formato de 12 horas
+    horas = horas % 12;
+    horas = horas ? horas : 12; // la hora '0' debería ser '12'
+
+    // Asegúrate de que las horas y los minutos sean de dos dígitos
+    horas = horas < 10 ? '0' + horas : horas;
+    minutos = minutos < 10 ? '0' + minutos : minutos;
+
+    // Formatea la hora en el formato hh:mm AM/PM
+    var horaFormateada = horas + ':' + minutos + ' ' + ampm;
+
+    // Asigna la hora formateada al elemento HTML
+    elemento.textContent = horaFormateada;
+}
+
+// Actualiza la hora inmediatamente
+actualizarHora();
+
+// Configura setInterval para actualizar la hora cada minuto
+setInterval(actualizarHora, 60000);

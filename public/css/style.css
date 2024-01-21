@@ -32,8 +32,9 @@ body {
   width: 640px;
   height: 640px;
   border-radius: 50%;
-  background-color: var(--primary-color);
-  background-image: url("../img/starfield_compass.svg");
+  /*background-color: var(--primary-color);*/
+  background-color: black;
+  /*background-image: url("../img/starfield_compass.svg");*/
   background-position: center;
   background-repeat: repeat;
   background-size: cover;
@@ -75,7 +76,7 @@ body {
 
 /*letras de cpu y gpu*/
 .info_container .info {
-  font-size: 30px;
+  font-size: 35px;
   font-weight: 800;
 }
 
