@@ -94,6 +94,7 @@ const gpu_usage_use_c = document.getElementById('gpu_usage_use');
 function use_gpu(gpus_c) {
 
   let gpu_palabraParaQuitar = "nvidia geforce"
+
   const gpuInUse = gpus_c.name.replace(new RegExp(gpu_palabraParaQuitar, 'gi'), "");
 
   gpu_usage_use_c.innerHTML = `${gpuInUse}`;
@@ -145,5 +146,19 @@ function actualizarHora() {
 // Actualiza la hora inmediatamente
 actualizarHora();
 
-// Configura setInterval para actualizar la hora cada minuto
-setInterval(actualizarHora, 60000);
+// Configura setInterval para actualizar la hora cada 30 seg
+setInterval(actualizarHora, 30000);
+
+
+//---------
+//imagenes
+let element = document.getElementById('imagen'); // Reemplaza 'myElement' con el ID de tu elemento
+
+setInterval(() => {
+    let randomNum = Math.random();
+    let newImage = new Image();
+    newImage.src = `https://picsum.photos/200/300?random=${randomNum}`;
+    newImage.onload = () => {
+        element.style.backgroundImage = `url('${newImage.src}')`;
+    };
+}, 60000); //60000
