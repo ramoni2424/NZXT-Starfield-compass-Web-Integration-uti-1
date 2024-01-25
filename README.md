@@ -1,4 +1,3 @@
-https://ramoni2424.github.io/NZXT-Starfield-compass-Web-Integration-uti-1/
 # ✏️ NZXT Starfield Compass Web Integration
 
 <div align="center">
