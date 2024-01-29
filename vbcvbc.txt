@@ -1,0 +1,75 @@
+https://loremflickr.com/420/340
+
+https://picsum.photos/200
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dominant color tutorial</title>
+    <style>
+        .donut {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: #fff;
+            overflow: hidden;
+            border: 90px solid #000;
+        }
+
+        .donut::before {
+            content: "";
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            background: #000;
+            border-radius: 50%;
+        }
+
+        .donut img {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            width: 240px;
+            height: 240px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="donut">
+        <img src="https://loremflickr.com/420/340" alt="image" crossorigin="anonymous">
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+    <script>
+        window.onload = () => {
+            getDominantImageColor = () => {
+                // Obtén la imagen
+                let sourceImage = document.querySelector("img");
+                // Obtén el elemento de fondo
+                let donut = document.querySelector(".donut");
+                // Inicializa colorThief
+                let colorThief = new ColorThief();
+                // Obtén la paleta de colores
+                let color = colorThief.getColor(sourceImage);
+                console.log(color);
+                // Establece el color de fondo
+                donut.style.backgroundColor = "rgb(" + color[0] +"," + color[1] +","+ color[2] +")";
+            }
+            getDominantImageColor();
+        }
+
+    </script>
+</body>
+
+</html>

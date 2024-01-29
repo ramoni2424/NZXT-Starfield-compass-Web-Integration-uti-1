@@ -1,0 +1,121 @@
+@font-face {
+  font-family: Prime;
+  src: url(../fonts/Prime.otf);
+}
+
+:root {
+  --primary-color: #ffffff;
+  /*
+  por defecto
+  --primary-color: #e6e6e6;*/
+}
+
+* {
+  margin: 0;
+}
+
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Prime;
+  line-height: 1.5;
+}
+
+body {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  /*background-color:black;*/
+  /*background-color: var(--primary-color);*/
+  /*background-image: url("../img/starfield_compass.svg");*/
+  background-color:black;
+  background-position: center;
+  background-repeat: repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.custom_text_container {
+  position: relative;
+  width: 100%;
+  top: 1px; /*mueve todo el contenido*/
+  height: auto;
+  color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 800;
+  color: rgb(255, 255, 255);
+}
+
+/*info de cpu y gpu*/
+.info_wrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+  height: auto;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.info_container {
+  color: var(--primary-color);
+}
+
+/*letras de cpu y gpu*/
+.info_container .info {
+  font-size: 35px;
+  font-weight: 800;
+}
+
+
+.divider {
+  height: 50px;
+  border: 1px solid var(--primary-color);
+  opacity: 50%;
+}
+
+/*oscurecer imagenes*/
+
+#imagen1  {
+  position: fixed;
+  background-size: cover;
+  transition: background-image 2s ease-in;
+}
+
+#imagen1::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+
+/*tamaño gpu*/
+
+#gpu1{
+  width: 52px;
+}
+
+
+/*nzxt titulo*/
+.nzxtTit1{
+font-size: 55px;
+font-weight: bolder;
+}
