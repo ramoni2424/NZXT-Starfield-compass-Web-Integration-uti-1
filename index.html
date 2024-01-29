@@ -1,0 +1,122 @@
+<html>
+<header>
+  <title>NZXT Starfield Compass Web Integration</title>
+  <!--htt ps://cdnjs.com/libraries/font-awesome-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!--<link rel="stylesheet" href="./public/css/estilo1.css">-->
+  <link rel="stylesheet" href="./public/css/style.css" />
+  <style>
+    .donut {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: transparent;
+      border-radius: 50%;
+      overflow: hidden;
+      height: 95%;
+      width: 95%;  
+    }
+  </style>
+</header>
+
+<body>
+  <div class="donut">
+    <div id="imagen1">
+      <img src="https://picsum.photos/670/620" alt="image" crossorigin="anonymous">
+    </div>
+    <div class="custom_text_container">
+
+      <p class="title nzxtTit1">
+        NZXT</p>
+
+      <div class="info_wrapper">
+        <div class="info_container">
+          <span><i class="fa fa-3x fa-microchip" style="color: rgb(39, 88, 179);"></i></span>
+          <p id="cpu_usage_use" class="title">nombreCPU</p>
+          <p id="cpu_temp" class="info">12 °C</p>
+        </div>
+
+        <span class="divider"></span>
+
+        <div class="info_container">
+          <span><i class="fa-3x fa-sharp fa-solid fa-memory" style="color: red;"></i></span>
+          <p id="ram_usage" class="title">nombreRAM</p>
+          <p id="ram_usage_uso" class="info">2 GB</p>
+        </div>
+
+        <span class="divider"></span>
+
+        <div class="info_container">
+          <span><img id="gpu1" src="public/svg/video-card.svg"></span>
+          <p id="gpu_usage_use" class="title">nombreGPU</p>
+          <p id="gpu_temp" class="info">10 °C</p>
+        </div>
+      </div>
+
+      <div class="info_wrapper">
+
+        <div class="info_container">
+          <span><i class="fa-3x fa-solid fa-clock" style="color:rgb(172, 165, 165);"></i></span>
+          <p class="title">Hora</p>
+          <p id="hora_use" class="info">12:80 AM</p>
+        </div>
+
+        <span class="divider"></span>
+
+        <div class="info_container">
+          <span><i class="fa fa-3x fa-water" style="color: darkcyan;"></i></span>
+          <p id="kraken_usage" class="title">Liquido</p>
+          <p id="kraken_usage_use" class="info">10 °C</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+<script>
+  //Selecciona el elemto*1
+  /*cambia el color del circulo*/
+  window.onload = () => {
+ 
+    getGenerateImage = () => {
+      let element = document.querySelector('#imagen1 img');
+
+    let randomNum = Math.random();
+    let newImageSrc = `https://picsum.photos/670/620?random=${randomNum}`;
+    element.src = newImageSrc;
+
+  }
+  getDominantImageColor = () => {
+      // Obtén la imagen
+      let sourceImage = document.querySelector("#imagen1 img");
+      // Obtén el elemento de fondo
+      let donut = document.querySelector(".donut");
+      // Inicializa colorThief
+      let colorThief = new ColorThief();
+      // Obtén la paleta de colores
+      let color = colorThief.getColor(sourceImage);
+      // Establece el color de fondo
+      donut.style.border = "14px solid rgba(" + color[0] + "," + color[1] + "," + color[2] + ",0.5" + ")";
+    }
+}
+  setInterval(() => {
+
+    // Selecciona la imagen dentro del div con el ID 'imagen1' *2
+    getDominantImageColor();
+
+    getGenerateImage();
+
+
+
+
+  }, 2000); //60000
+
+
+
+</script>
+<script type="module" src="./public/js/main.js"></script>
