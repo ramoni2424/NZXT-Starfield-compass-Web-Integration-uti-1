@@ -39,6 +39,7 @@ const cpu_temp = document.getElementById('cpu_temp');
 function update_cpu(temp) {
   cpu_temp.innerHTML = `${Math.round(temp)} °C`;
 }
+
 /*
 no borrar, es de ejemplo
 const ram_usage = document.getElementById('ram_usage');
@@ -52,9 +53,12 @@ function update_ram(ram) {
 const ram_usage = document.getElementById('ram_usage');
 function update_ram(ram) {
   // Response is in Mebibytes, convert the 'inUse' value to gigabytes. || https://github.com/NZXTCorp/web-integrations-types/blob/main/v1/index.d.ts
-  const ramInUse = ram.modules[1].kind;
-  //  const ramInUse = ram.modules[0].model;
-  ram_usage.innerHTML = `RAM-${ramInUse}`;
+  const ramInUse1 = ram.modules[0].kind;
+  const ramInUse2 = ram.modules[1].frequency;
+
+  ram_usage.innerHTML =
+    `${ramInUse1}<br>
+  ${ramInUse2 * 2} MHz`;
 }
 
 
@@ -66,6 +70,7 @@ function update_gpu(temp) {
 //-------------------------------
 /*esta parte es metida por mi*/
 /*nombre cpu*/
+
 const cpu_usage_use_c = document.getElementById('cpu_usage_use');
 function use_cpu(cpus_c) {
 
@@ -75,18 +80,14 @@ function use_cpu(cpus_c) {
   cpu_usage_use_c.innerHTML = `${cpuInUse}`;
 }
 
-
-
 /*nombre ram*/
 
 const ram_usage_uso = document.getElementById('ram_usage_uso');
 function use_ram(ram) {
-  // Response is in Mebibytes, convert the 'inUse' value to gigabytes. || https://github.com/NZXTCorp/web-integrations-types/blob/main/v1/index.d.ts
+  // Response is in Mebibytes, conve  rt the 'inUse' value to gigabytes. || https://github.com/NZXTCorp/web-integrations-types/blob/main/v1/index.d.ts
   const gbInUse_uso = ram.inUse / 1024;
   ram_usage_uso.innerHTML = `${gbInUse_uso.toFixed(2)} GB`;
 }
-
-
 
 
 /*nombre gpu*/
@@ -95,12 +96,11 @@ function use_gpu(gpus_c) {
 
   let gpu_palabraParaQuitar = "nvidia geforce"
 
-  const gpuInUse = gpus_c.name.replace(new RegExp(gpu_palabraParaQuitar, 'gi'),"");
+  const gpuInUse = gpus_c.name.replace(new RegExp(gpu_palabraParaQuitar, 'gi'), "");
 
   gpu_usage_use_c.innerHTML = `${gpuInUse}`;
 
 }
-
 //----------
 
 const kraken_usage_use_c = document.getElementById('kraken_usage_use');
@@ -111,8 +111,29 @@ function use_kraken(kraken_c) {
   kraken_usage_use_c.innerHTML = `${krakenInUse} °C`;
 
 }
+//-------
+//fecha
+
+let fecha = new Date();
+
+let dias = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab']; // Días de la semana
+let meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']; // Primera letra de cada mes
+
+let dia = String(fecha.getDate()).padStart(2, '0');
+let mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript empiezan desde 0
+let anio = fecha.getFullYear();
+
+let diaSemana = dias[fecha.getDay()]; // Obtenemos el día de la semana
+let mesLetra = meses[fecha.getMonth()]; // Obtenemos la primera letra del mes actual
+
+let fechaFormateada = `${dia}-${diaSemana} / ${mes}-${mesLetra} / ${anio}`;
+
+document.getElementById('hora_u_h').innerHTML = fechaFormateada;
+
 
 //----
+//hora
+
 // Obtén el elemento HTML
 var elemento = document.getElementById('hora_use');
 
@@ -126,7 +147,7 @@ function actualizarHora() {
   var minutos = ahora.getMinutes();
 
   // Determina si es AM o PM
-  var ampm = horas >= 12 ? 'PM' : 'AM';
+  var ampm = horas >= 12 ? 'pm' : 'am';
 
   // Convierte las horas al formato de 12 horas
   horas = horas % 12;
@@ -146,5 +167,5 @@ function actualizarHora() {
 // Actualiza la hora inmediatamente
 actualizarHora();
 
-// Configura setInterval para actualizar la hora cada 30 seg
-setInterval(actualizarHora, 30000);
+// Configura setInterval para actualizar la hora cada 2 seg
+setInterval(actualizarHora, 2000);
