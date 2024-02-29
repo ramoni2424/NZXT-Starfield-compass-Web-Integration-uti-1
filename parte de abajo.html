@@ -1,0 +1,106 @@
+MIO 
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Nombre">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Título de la página</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.4.0/color-thief.min.js"></script>
+    <script>
+window.onload = () => {
+ 
+    getGenerateImage = () => {
+      let element = document.querySelector('#imagen1 img');
+
+    let randomNum = Math.random();
+    let newImageSrc = `https://picsum.photos/670/620?random=${randomNum}`;
+    element.src = newImageSrc;
+
+  }
+  getDominantImageColor = () => {
+      // Obtén la imagen
+      let sourceImage = document.querySelector("#imagen1 img");
+      // Obtén el elemento de fondo
+      let donut = document.querySelector(".donut");
+      // Inicializa colorThief
+      let colorThief = new ColorThief();
+      // Obtén la paleta de colores
+      let color = colorThief.getColor(sourceImage);
+      // Establece el color de fondo
+      donut.style.border = "14px solid rgba(" + color[0] + "," + color[1] + "," + color[2] + ",0.5" + ")";
+    }
+}
+  setInterval(() => {
+
+    // Selecciona la imagen dentro del div con el ID 'imagen1' *2
+
+    getGenerateImage();
+
+    getDominantImageColor();
+
+
+
+  }, 2000); //60000
+</script>
+</head>
+
+<body>
+    <div id="imagen1"><img crossOrigin></div>
+</body>
+
+</html>
+-----------------------------------------
+  PROFE
+  <!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Nombre">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Título de la página</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.4.0/color-thief.min.js"></script>
+    <script>
+
+        window.onload = () => {
+
+        getGenerateImage = () => {
+                let element = document.querySelector('#imagen1 img');
+
+                let randomNum = Math.random();
+                let newImageSrc = `https://picsum.photos/670/620?random=${randomNum}`;
+
+                element.addEventListener('load', function () {
+                    getDominantImageColor();
+                    setTimeout(getGenerateImage, 2000);
+                });
+
+                element.src = newImageSrc;
+            }
+
+        getDominantImageColor = () => {
+            // Obtén la imagen
+            let sourceImage = document.querySelector("#imagen1 img");
+            const colorThief = new ColorThief();
+
+            let color = colorThief.getColor(sourceImage);
+            let donut = document.querySelector("#imagen1");
+
+            donut.style.border = "14px solid rgba(" + color[0] + "," + color[1] + "," + color[2] + ",0.5" + ")";
+        }  
+
+        // Inicia el proceso
+        getGenerateImage();
+
+        }
+
+    </script>
+</head>
+
+<body>
+    <div id="imagen1"><img crossOrigin></div>
+</body>
+
+</html>

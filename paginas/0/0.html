@@ -1,0 +1,65 @@
+<html>
+<header>
+  <title>NZXT Starfield Compass Web Integration</title>
+  <!--https://cdnjs.com/libraries/font-awesome-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!--<link rel="stylesheet" href="./public/css/estilo1.css">-->
+  <link rel="stylesheet" href="../../public/css/style.css" />
+</header>
+
+<body>
+  <img id="NZXTtitulo" src="../../public/svg/NZXT.svg">
+
+
+  <div class="info_wrapper">
+
+    <div class="info_container">
+      <span><i class="fa fa-3x fa-microchip" style="color: rgb(39, 88, 179);"></i></span>
+      <p id="cpu_usage_use" class="title">nombreCPU</p>
+      <p id="cpu_temp" class="info">- °C</p>
+    </div>
+
+    <span class="divider"></span>
+
+
+    <div class="info_container">
+      <span><i class="fa-3x fa-sharp fa-solid fa-memory" style="color: red;"></i></span>
+      <p id="ram_usage" class="title">DDRX<br>- MHz</p>
+      <p id="ram_usage_uso" class="info">- GB</p>
+    </div>
+
+
+    <span class="divider"></span>
+
+    <div class="info_container">
+      <img src="../../public/svg/video-card.svg">
+
+      <p id="gpu_usage_use" class="title">nombreGPU</p>
+      <p id="gpu_temp" class="info">- °C</p>
+    </div>
+  </div>
+
+  <div class="info_wrapper">
+
+
+    <div class="info_container">
+      <span><i class="fa-3x fa-solid fa-clock" style="color:rgb(172, 165, 165);"></i></span>
+      <p id="hora_u_h" class="title">dd/mm/yyyy</p>
+      <p id="hora_use" class="info">-:-</p>
+    </div>
+
+    <span class="divider"></span>
+
+    <div class="info_container">
+      <span><i class="fa fa-3x fa-water" style="color: darkcyan;"></i></span>
+      <p id="kraken_usage" class="title">Temp liq</p>
+      <p id="kraken_usage_use" class="info">- °C</p>
+    </div>
+  </div>
+
+</body>
+<script type="module" src="../../public/js/main.js"></script>
+
+</html>
