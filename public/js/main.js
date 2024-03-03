@@ -53,7 +53,7 @@ function update_ram(ram) {
 const ram_usage = document.getElementById('ram_usage');
 function update_ram(ram) {
   // Response is in Mebibytes, convert the 'inUse' value to gigabytes. || https://github.com/NZXTCorp/web-integrations-types/blob/main/v1/index.d.ts
-  const ramInUse1 = ram.modules[0].kind;
+  const ramInUse1 = ram.modules[1].kind;
   const ramInUse2 = ram.modules[0].frequency;
 
   ram_usage.innerHTML =
