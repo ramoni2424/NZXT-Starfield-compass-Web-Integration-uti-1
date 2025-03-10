@@ -1,0 +1,146 @@
+@font-face {
+  font-family: Prime;
+  src: url(../fonts/Prime.otf);
+}
+
+:root {
+  --primary-color: #ffffff;
+  /*
+  por defecto
+  --primary-color: #e6e6e6;*/
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  background-color: rgb(34, 34, 34);
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Prime;
+  line-height: 1.5;
+}
+
+body {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  /*background-color:black;*/
+  /*background-color: var(--primary-color);*/
+  /*background-image: url("../img/starfield_compass.svg");*/
+  background-color: black;
+  background-position: center;
+  background-repeat: repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 800;
+  color: rgb(255, 255, 255);
+  text-align: center; /* Centrar el texto */
+}
+
+.info_container {
+  color: var(--primary-color);
+  text-align: center;
+  width: 70%; /* Ajusta el ancho del contenedor */
+  margin: 0 auto; /* Centra el contenedor */
+}
+
+/*letras de cpu y gpu*/
+.info_container .info {
+  font-size: 35px;
+  font-weight: 800;
+  text-align: center; /* Centrar el texto */
+}
+
+/*borrar?*/
+.divider {
+  height: 50px;
+  border: 1px solid var(--primary-color);
+  opacity: 50%;
+}
+
+/*centrar cpu,gpu,ram,...*/
+
+.info_container .cont {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrar el contenido de las columnas */
+  width: 45%; /* Ajusta el ancho de las columnas */
+}
+
+/*oscurecer imagenes*/
+
+#imagen1 img {
+  width: 670px;
+  height: 620px;
+  background-size: cover;
+  transition: background-image 2s ease-in-out;
+}
+
+/*tamaño gpu*/
+#gpu1 {
+  width: 52px;
+}
+
+/*nzxt titulo   borrar?*/
+#NZXTtitulo {
+  width: 30%;
+}
+
+/*barra de progreso*/
+
+.progress_container {
+  width: 100%;
+  background-color: gray;
+  border-radius: 25px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.progress_bar {
+  width: 0;
+  height: 30px;
+  border-radius: 25px;
+  transition: width 2s;
+}
+
+#cpu_bar{
+  background-color: rgb(39, 88, 179);
+}
+
+#ram_bar{
+  background-color: rgb(255, 0, 0);
+}
+
+#gpu_bar{
+  background-color: rgb(0, 128, 0);
+}
+
+#kraken_bar{
+  background-color: rgb(0, 139, 139);
+}
