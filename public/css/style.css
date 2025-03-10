@@ -47,49 +47,53 @@ body {
   font-size: 32px;
   font-weight: 800;
   color: rgb(255, 255, 255);
-}
-
-/*info de cpu y gpu*/
-.info_wrapper {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 80%;
-  height: auto;
-  text-align: center;
+  text-align: center; /* Centrar el texto */
 }
 
 .info_container {
   color: var(--primary-color);
+  text-align: center;
+  width: 70%; /* Ajusta el ancho del contenedor */
+  margin: 0 auto; /* Centra el contenedor */
 }
 
 /*letras de cpu y gpu*/
 .info_container .info {
   font-size: 35px;
   font-weight: 800;
+  text-align: center; /* Centrar el texto */
 }
 
+/*borrar?*/
 .divider {
   height: 50px;
   border: 1px solid var(--primary-color);
   opacity: 50%;
 }
 
+/*centrar cpu,gpu,ram,...*/
+
+.info_container .cont {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrar el contenido de las columnas */
+  width: 45%; /* Ajusta el ancho de las columnas */
+}
+
 /*oscurecer imagenes*/
-
-
-
-/*
-#imagen1::before {
-  NZXTLogo: "";
-  position: fixed;
-  transition: all 2s ease;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.75);
-}*/
 
 #imagen1 img {
   width: 670px;
@@ -98,75 +102,45 @@ body {
   transition: background-image 2s ease-in-out;
 }
 
-
-
-
 /*tamaño gpu*/
 #gpu1 {
   width: 52px;
 }
 
-/*nzxt titulo*/
+/*nzxt titulo   borrar?*/
 #NZXTtitulo {
   width: 30%;
 }
 
-/*--------------------------------*/
+/*barra de progreso*/
 
-/*logo*/
-.NZXTLogo {
-
-  font-family: "Poppins", sans-serif;
+.progress_container {
+  width: 100%;
+  background-color: gray;
+  border-radius: 25px;
+  overflow: hidden;
+  margin: 20px 0;
 }
 
-.NZXTLogo {
-  display: flex;
-  background: #000;
-  align-items: center;
+.progress_bar {
+  width: 0;
+  height: 30px;
+  border-radius: 25px;
+  transition: width 2s;
 }
 
-
-.NZXTLogo h2 {
-  font-size: 2cm;
-  position: absolute;
-  top: 4cm;
-  transform: translate(-50%, -50%);
+#cpu_bar{
+  background-color: rgb(39, 88, 179);
 }
 
-.NZXTLogo h2:nth-child(1) {
-  color: transparent;
-  -webkit-text-stroke: 2px rgb(120, 12, 175);
+#ram_bar{
+  background-color: rgb(255, 0, 0);
 }
 
-.NZXTLogo h2:nth-child(2) {
-  color: rgb(120, 12, 175);
-  animation: animate 4s ease-in-out infinite;
+#gpu_bar{
+  background-color: rgb(0, 128, 0);
 }
 
-@keyframes animate {
-
-  0%,
-  100% {
-    clip-path: polygon(0% 45%,
-        16% 44%,
-        33% 50%,
-        54% 60%,
-        70% 61%,
-        84% 59%,
-        100% 52%,
-        100% 100%,
-        0% 100%);
-  }
-
-  50% {
-    clip-path: polygon(0% 60%,
-        15% 65%,
-        34% 66%,
-        51% 62%,
-        67% 50%,
-        84% 45%,
-        100% 46%,
-        100% 100%,
-        0% 100%);
-  }
+#kraken_bar{
+  background-color: rgb(0, 139, 139);
 }

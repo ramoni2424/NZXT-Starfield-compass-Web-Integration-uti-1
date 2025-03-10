@@ -1,178 +1,143 @@
+// Función para obtener cookies
 function get_cookie(cookie_name) {
   const cookies = document.cookie.split(';');
   for (let cookie of cookies) {
-    cookie = cookie.trim();
-    if (cookie.length > 0) {
-      let name, value;
-      [name, value] = cookie.split('=');
-      if (name === cookie_name) return value;
-    }
+      cookie = cookie.trim();
+      if (cookie.length > 0) {
+          let name, value;
+          [name, value] = cookie.split('=');
+          if (name === cookie_name) return value;
+      }
   }
   return null;
 }
 
-
+// Configuración de la vista
 const VIEWSTATE = parseInt(get_cookie('viewstate')) || 640;
 document.body.style.width = VIEWSTATE + 'px';
 document.body.style.height = VIEWSTATE + 'px';
 
-window.nzxt = {
-  v1: {
-    onMonitoringDataUpdate: (data) => {
-      const { cpus, gpus, ram, kraken } = data;
+// Función para actualizar la barra de progreso
+function updateProgress(elementId, value, maxValue = 100) {
+  const progressBar = document.getElementById(elementId);
+  if (value > maxValue) {
+      value = maxValue;
+  }
+  progressBar.style.width = (value / maxValue) * 100 + '%';
+}
 
-      update_cpu(cpus[0].temperature);
-      update_gpu(gpus[0].temperature);
-      update_ram(ram);
+// Función para actualizar temperatura
+function updateTemperature(elementId, temp) {
+  const tempElement = document.getElementById(elementId);
+  if (tempElement) {
+      tempElement.innerHTML = `${Math.round(temp)} °C`;
+  } else {
+      console.error(`Elemento ${elementId} no encontrado`);
+  }
+}
 
-      /*esta parte es metida por mi*/
-      use_cpu(cpus[0]);
-      use_gpu(gpus[0]);
-      use_ram(ram);
-
-      use_kraken(kraken);
-    },
-  },
-};
-
-const cpu_temp = document.getElementById('cpu_temp');
+// Actualización de CPU
 function update_cpu(temp) {
-  cpu_temp.innerHTML = `${Math.round(temp)} °C`;
+  updateTemperature('cpu_temp', temp);
+  updateProgress('cpu_bar', Math.round(temp));
 }
 
-/*
-no borrar, es de ejemplo
-const ram_usage = document.getElementById('ram_usage');
-function update_ram(ram) {
-  // Response is in Mebibytes, convert the 'inUse' value to gigabytes. || https://github.com/NZXTCorp/web-integrations-types/blob/main/v1/index.d.ts
-  const gbInUse = ram.inUse / 1024;
-  ram_usage.innerHTML = `${gbInUse.toFixed(2)} GB`;
-}*/
-
-
-const ram_usage = document.getElementById('ram_usage');
-function update_ram(ram) {
-  // Response is in Mebibytes, convert the 'inUse' value to gigabytes. || https://github.com/NZXTCorp/web-integrations-types/blob/main/v1/index.d.ts
-  const ramInUse1 = ram.modules[1].kind;
-  const ramInUse2 = ram.modules[0].frequency;
-
-  ram_usage.innerHTML =
-    `${ramInUse1}<br>
-  ${ramInUse2 * 2} MHz`;
-}
-
-
-const gpu_temp = document.getElementById('gpu_temp');
+// Actualización de GPU
 function update_gpu(temp) {
-  gpu_temp.innerHTML = `${Math.round(temp)} °C`;
+  updateTemperature('gpu_temp', temp);
+  updateProgress('gpu_bar', Math.round(temp));
 }
 
-//-------------------------------
-/*esta parte es metida por mi*/
-/*nombre cpu*/
+// Actualización de RAM
+function update_ram(ram) {
+  const ram_usage = document.getElementById('ram_usage');
+  const ramInUse1 = ram.modules[0].kind;
+  ram_usage.innerHTML = `${ramInUse1}`;
+  const gbInUse = ram.inUse / 1024;
+  const ram_total = ram.totalSize / 1024;
+  updateProgress('ram_bar', gbInUse, ram_total);
+}
 
-const cpu_usage_use_c = document.getElementById('cpu_usage_use');
+// Actualización del uso de RAM
+function use_ram(ram) {
+  const ram_usage_uso = document.getElementById('ram_usage_uso');
+  const gbInUse_uso = ram.inUse / 1024;
+  ram_usage_uso.innerHTML = `${gbInUse_uso.toFixed(2)} GB`;
+
+  // Barra de progreso
+  const ram_total = ram.totalSize / 1024;
+  let progress_ram = gbInUse_uso;
+
+  function updateProgress_ram(value) {
+      const progressBar_ram = document.getElementById('ram_bar');
+      progress_ram = value;
+      if (progress_ram > ram_total) {
+          progress_ram = ram_total;
+      }
+      progressBar_ram.style.width = (progress_ram / ram_total * 100) + '%';
+  }
+
+  // Actualización de progreso
+  setInterval(() => {
+      const newValue = progress_ram;
+      updateProgress_ram(newValue);
+  }, 2000);
+}
+
+// Actualización de nombres
 function use_cpu(cpus_c) {
-
-  let cpu_palabraParaQuitar = "core"
+  let cpu_palabraParaQuitar = "core"; // Palabra para quitar
+  const cpu_usage_use_c = document.getElementById('cpu_usage_use');
   const cpuInUse = cpus_c.name.replace(new RegExp(cpu_palabraParaQuitar, 'gi'), "");
-
   cpu_usage_use_c.innerHTML = `${cpuInUse}`;
 }
 
-/*nombre ram*/
-
-const ram_usage_uso = document.getElementById('ram_usage_uso');
-function use_ram(ram) {
-  // Response is in Mebibytes, conve  rt the 'inUse' value to gigabytes. || https://github.com/NZXTCorp/web-integrations-types/blob/main/v1/index.d.ts
-  const gbInUse_uso = ram.inUse / 1024;
-  ram_usage_uso.innerHTML = `${gbInUse_uso.toFixed(2)} GB`;
-}
-
-
-/*nombre gpu*/
-const gpu_usage_use_c = document.getElementById('gpu_usage_use');
 function use_gpu(gpus_c) {
-
-  let gpu_palabraParaQuitar = "nvidia geforce"
-
+  let gpu_palabraParaQuitar = "nvidia geforce"; // Palabra para quitar
+  const gpu_usage_use_c = document.getElementById('gpu_usage_use');
   const gpuInUse = gpus_c.name.replace(new RegExp(gpu_palabraParaQuitar, 'gi'), "");
-
   gpu_usage_use_c.innerHTML = `${gpuInUse}`;
-
 }
-//----------
 
-const kraken_usage_use_c = document.getElementById('kraken_usage_use');
 function use_kraken(kraken_c) {
-
+  const kraken_usage_use_c = document.getElementById('kraken_usage_use');
   const krakenInUse = kraken_c.liquidTemperature;
-
   kraken_usage_use_c.innerHTML = `${krakenInUse} °C`;
-
+  updateProgress('kraken_bar', krakenInUse);
 }
-//-------
-//fecha
+
+// Función para actualizar fecha
 function actualizarFecha() {
-
-  let fecha = new Date();
-
-  let dias = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab']; // Días de la semana
-  let meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']; // Primera letra de cada mes
-
-  let dia = String(fecha.getDate()).padStart(2, '0');
-  let mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript empiezan desde 0
-  let anio = fecha.getFullYear();
-
-  let diaSemana = dias[fecha.getDay()]; // Obtenemos el día de la semana
-  let mesLetra = meses[fecha.getMonth()]; // Obtenemos la primera letra del mes actual
-
-  let fechaFormateada = `${dia}-${diaSemana} / ${mes}-${mesLetra} / ${anio}`;
-
+  const fecha = new Date();
+  const dias = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
+  const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+  const dia = String(fecha.getDate()).padStart(2, '0');
+  const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript empiezan desde 0
+  const anio = fecha.getFullYear();
+  const diaSemana = dias[fecha.getDay()]; // Obtenemos el día de la semana
+  const mesLetra = meses[fecha.getMonth()]; // Obtenemos la primera letra del mes actual
+  const fechaFormateada = `${dia}-${diaSemana} / ${mes}-${mesLetra} / ${anio}`;
   document.getElementById('hora_u_h').innerHTML = fechaFormateada;
 }
 
 // Actualiza la fecha inmediatamente
-actualizarFecha()
+actualizarFecha();
 
-//----
-//hora
-
-// Obtén el elemento HTML
-var elemento = document.getElementById('hora_use');
-
-// Función para actualizar la hora
+// Función para actualizar hora
 function actualizarHora() {
-  // Obtén la fecha y hora actual
-  var ahora = new Date();
-
-  // Obtén las horas y los minutos
-  var horas = ahora.getHours();
-  var minutos = ahora.getMinutes();
-
-  //*****fecha*/
-  //llama a la fecha para que tambien se actualice
-  if (horas === 0 && minutos === 0) { //esta en formato normal, no 24h -> 16:01,18:04,...
-    actualizarFecha()
+  const ahora = new Date();
+  let horas = ahora.getHours();
+  let minutos = ahora.getMinutes();
+  // Llama a la fecha para que también se actualice
+  if (horas === 0 && minutos === 0) {
+      actualizarFecha();
   }
-  //*******/
-
-  // Determina si es AM o PM
-  var ampm = horas >= 12 ? 'pm' : 'am';
-
-  // Convierte las horas al formato de 12 horas
-  horas = horas % 12;
-  horas = horas ? horas : 12; // la hora '0' debería ser '12'
-
-  // Asegúrate de que las horas y los minutos sean de dos dígitos
+  const ampm = horas >= 12 ? 'pm' : 'am';
+  horas = horas % 12 || 12;
   horas = horas < 10 ? '0' + horas : horas;
   minutos = minutos < 10 ? '0' + minutos : minutos;
-
-  // Formatea la hora en el formato hh:mm AM/PM
-  var horaFormateada = horas + ':' + minutos + ' ' + ampm;
-
-  // Asigna la hora formateada al elemento HTML
-  elemento.textContent = horaFormateada;
+  const horaFormateada = `${horas}:${minutos} ${ampm}`;
+  document.getElementById('hora_use').textContent = horaFormateada;
 }
 
 // Actualiza la hora inmediatamente
@@ -180,3 +145,18 @@ actualizarHora();
 
 // Configura setInterval para actualizar la hora cada 2 seg
 setInterval(actualizarHora, 2000);
+
+window.nzxt = {
+  v1: {
+      onMonitoringDataUpdate: (data) => {
+          const { cpus, gpus, ram, kraken } = data;
+          update_cpu(cpus[0].temperature);
+          update_gpu(gpus[0].temperature);
+          update_ram(ram);
+          use_cpu(cpus[0]);
+          use_gpu(gpus[0]);
+          use_ram(ram);
+          use_kraken(kraken);
+      },
+  },
+};
